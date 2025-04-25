@@ -2,6 +2,10 @@ import requests
 
 TEXT = "Texto principal"
 
+LIFE_CYCLE = [
+    "DRAFT", # Rascunho
+    "PUBLISHED"
+]
 MEDIA_CATEGORY = [
     "NONE",
     "IMAGE",
@@ -12,7 +16,7 @@ MEDIA_CATEGORY = [
 MEDIA_UR = "URN da MIDIA que subimos"
 
 class Publish:
-    def post_publish(self, access_token, urn, text, media_category, media_urn):
+    def post_publish(self, access_token, urn, text, media_category, lifecycle_state, media_urn):
         headers = {
             'Authorization': f'Bearer {access_token}',
             'Content-Type': 'application/json',
@@ -37,6 +41,9 @@ class Publish:
         # Valida e adiciona texto
         if text:
             post_data["specificContent"]["com.linkedin.ugc.ShareContent"]["shareCommentary"]["text"] = text
+
+        if lifecycle_state:
+            post_data["lifecycleState"] = lifecycle_state
 
         # Valida e adiciona categoria de mídia
         if media_category:
@@ -66,5 +73,5 @@ class Publish:
         
         print("Sucesso na requisição para publicar post", response.json())
         id = response.json().get('id')
-        print('ID da requisição:', access_token)
+        print('ID da requisição:', id)
         return id

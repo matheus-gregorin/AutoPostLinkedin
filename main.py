@@ -63,7 +63,7 @@ class MainLoop:
             print("Publicando POST...")
             time.sleep(3)
 
-            id = self.post.post_publish(self.access_token, sub, "Texto teste para validação", "NONE", "")
+            id = self.post.post_publish(self.access_token, sub, "Texto 123", "NONE", "DRAFT", "")
             time.sleep(3)
 
             if not id:
