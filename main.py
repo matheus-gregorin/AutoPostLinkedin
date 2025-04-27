@@ -39,7 +39,11 @@ class MainLoop:
             print("Iniciando...")
             time.sleep(3)
 
-            print("Validando código de troca...")
+
+            # IA
+
+
+            print("Validando code...")
             time.sleep(3)
 
             is_valid = self.valid_date()
