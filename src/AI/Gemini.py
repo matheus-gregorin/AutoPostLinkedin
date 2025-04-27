@@ -6,10 +6,68 @@ from google import generativeai as genai
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'linkedin')))
 from config import GEMINI_KEY # Esta resolvido sim
 
-# COLOCAR EM UM ARRAY OS SITES QUE DESEJA SCANNEAR
 sites = [
-    "https://dev.to/",
-    "https://canaltech.com.br/"
+    'https://www.techradar.com/',                # Notícias e tendências em tecnologia
+    'https://www.medium.com/',                  # Artigos de desenvolvedores e especialistas
+    'https://www.stackoverflow.com/',           # Discussões técnicas e soluções de problemas
+    'https://www.github.com/',                  # Repositórios de código e tendências de frameworks
+    'https://www.hackernews.com/',              # Notícias e tendências em tecnologia
+    'https://www.dev.to/',                      # Plataforma de conteúdo para desenvolvedores
+    'https://www.smashingmagazine.com/',        # Design web, UX/UI e desenvolvimento front-end
+    'https://www.digitalocean.com/community/',  # Artigos sobre DevOps, Cloud e desenvolvimento
+    'https://www.redhat.com/en/blog',           # Blogs sobre Linux, DevOps e computação em nuvem
+    'https://www.turing.com/blog/',             # Artigos sobre IA, Machine Learning e desenvolvimento
+    'https://www.infoq.com/',                  # Artigos sobre arquitetura de software e metodologias ágeis
+    'https://www.docker.com/blog/',             # Conteúdo sobre containers e orquestração
+    'https://www.theverge.com/tech',            # Notícias de tecnologia, incluindo inovações e tendências
+    'https://www.arxiv.org/',                   # Publicações acadêmicas sobre computação e IA
+    'https://www.cio.com/',                     # Tendências de tecnologia em empresas
+    'https://www.researchgate.net/',            # Artigos acadêmicos e pesquisas em tecnologia
+    'https://www.coursera.org/',                # Cursos sobre tecnologias emergentes
+    'https://www.edx.org/',                     # Cursos e materiais sobre desenvolvimento técnico
+    'https://www.codeproject.com/',             # Artigos, tutoriais e fóruns para desenvolvedores
+    'https://www.zdnet.com/',                   # Notícias e análises sobre tecnologia e software
+    'https://www.eweek.com/',                   # Notícias de TI e tendências em desenvolvimento
+    'https://www.linkedin.com/learning/',       # Cursos e artigos sobre habilidades técnicas
+    'https://www.wired.com/category/tech/',      # Notícias e análises de tecnologia e inovação
+    'https://www.technologyreview.com/',        # Inovações tecnológicas e tendências futuras
+    'https://www.venturebeat.com/',             # Notícias sobre startups e tecnologias emergentes
+    'https://www.oreilly.com/',                 # Conteúdo sobre livros, tutoriais e cursos em tecnologia
+    'https://www.mashable.com/tech',            # Notícias sobre inovações em tecnologia
+]
+
+temas = [
+    'Tendências de IA e Machine Learning em 2025',
+    'Como otimizar a performance de APIs RESTful',
+    'Melhores práticas para desenvolvimento com microserviços',
+    'Automação de testes com Selenium e Cypress',
+    'Principais ferramentas para monitoramento de aplicações em produção',
+    'Como integrar aplicações com GraphQL',
+    'Design Patterns mais usados no desenvolvimento de software',
+    'Desenvolvimento ágil: Scrum vs Kanban, qual a melhor abordagem?',
+    'A importância de DevOps na entrega contínua',
+    'Trabalhando com Docker e Kubernetes no desenvolvimento de software',
+    'Introdução à arquitetura serverless e suas vantagens',
+    'Como aplicar segurança em aplicações com OAuth e JWT',
+    'Integração de sistemas com RabbitMQ e Kafka',
+    'A evolução dos frameworks JavaScript: React, Vue e Angular',
+    'Como usar testes unitários no PHP com PHPUnit',
+    'Gerenciamento de banco de dados com MongoDB e MySQL',
+    'Práticas para garantir a escalabilidade de sistemas',
+    'Blockchain e suas aplicações no desenvolvimento de sistemas',
+    'Como utilizar CI/CD para automação de pipelines',
+    'A importância do versionamento de código com Git',
+    'Frameworks para criação de APIs: Laravel, Express, Django',
+    'Gestão de projetos e como escolher a metodologia certa',
+    'O impacto da computação em nuvem no desenvolvimento de software',
+    'Desenvolvimento seguro: Boas práticas para evitar vulnerabilidades',
+    'Como gerenciar dependências e pacotes em projetos de software',
+    'A ascensão da computação quântica no desenvolvimento de sistemas',
+    'Transformação digital: Como a tecnologia está mudando os negócios',
+    'O papel dos containers e orquestração no desenvolvimento moderno',
+    'Como garantir a privacidade de dados no desenvolvimento de software',
+    'Melhorando a experiência do usuário com design responsivo',
+    'Técnicas para otimização de banco de dados e consulta de dados'
 ]
 class Gemini:
     def __init__(self):
@@ -20,11 +78,14 @@ class Gemini:
 
     def ask_question(self):
         site_index = random.randint(0, len(sites) - 1)
-        site = sites[site_index]  # Agora pegamos o site certo!
+        site = sites[site_index]
+
+        conteudo_index = random.randint(0, len(temas) - 1)
+        tema = temas[conteudo_index]
         
         report = (
             f"""
-            Gere um post para o linkedin de desenvolvimento de sistemas com base em conceitos consolidados, de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto(se precisar de links na publicação, insira você mesmo). Com no máximo 3000 caracteres.
+            Gere um post para o linkedin de desenvolvimento de sistemas com base em conceitos consolidados, de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto(se precisar de links na publicação, insira você mesmo). Com no máximo 2400 caracteres. Use esse tema como base: {tema}.
             """
         )
         self.response = self.model.generate_content(report)
