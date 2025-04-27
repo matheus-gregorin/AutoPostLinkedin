@@ -1,7 +1,7 @@
 import sys
 sys.dont_write_bytecode = True
-
 import time
+import json
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
@@ -11,6 +11,7 @@ from src.linkedin.access import Access
 from src.linkedin.auth import Auth
 from src.linkedin.get_urn import CollectUrn
 from src.linkedin.post import Publish
+from src.AI.Gemini import Gemini
 
 class MainLoop:
     def __init__(self):
@@ -19,6 +20,7 @@ class MainLoop:
         self.auth = Auth()
         self.get_user_info = CollectUrn()
         self.post = Publish()
+        self.ia = Gemini()
 
         # Variáveis
         self.client_id = CLIENT_ID
@@ -41,7 +43,13 @@ class MainLoop:
 
 
             # IA
+            print("Gerando post com IA...")
+            time.sleep(3)
 
+            # Gerar post com IA
+            post = self.ia.ask_question()
+            print("Post gerado com IA: ", post)
+            time.sleep(3)
 
             print("Validando code...")
             time.sleep(3)
@@ -67,7 +75,7 @@ class MainLoop:
             print("Publicando POST...")
             time.sleep(3)
 
-            id = self.post.post_publish(self.access_token, sub, "Texto 123", "NONE", "DRAFT", "")
+            id = self.post.post_publish(self.access_token, sub, " ".join(post), "NONE", "DRAFT", "")
             time.sleep(3)
 
             if not id:
