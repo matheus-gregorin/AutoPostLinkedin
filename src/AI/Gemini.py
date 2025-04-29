@@ -82,8 +82,7 @@ class Gemini:
         self.model = genai.GenerativeModel('gemini-2.0-flash')
         # self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def ask_question(self, option):
-
+    def generate_post(self, option):
 
         ## SITES
         if option == '1':

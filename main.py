@@ -42,10 +42,6 @@ class MainLoop:
             time.sleep(3)
 
             option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Sair\n")
-
-            # IA
-            print("Gerando post com IA...")
-            time.sleep(3)
             
             if option == '1':
                 print("Gerando post de site...")
@@ -58,12 +54,14 @@ class MainLoop:
                 self.running = False
                 return
 
+            time.sleep(3)
+
             # Gerar post com IA
-            post = self.ia.ask_question(option)
+            post = self.ia.generate_post(option)
             print("Post gerado com IA: ", post)
             time.sleep(3)
 
-            print("Validando code...")
+            print("Validando code do Linkedin...")
             time.sleep(3)
 
             is_valid = self.valid_date()
@@ -99,6 +97,7 @@ class MainLoop:
 
 
     def revalidating_code(self):
+
         self.access.recovery_code() # Abrindo no browser a pagina para recuperar o código
         self.code = input("Digite o código aqui: ")
         print("Codigo atualizado: ", self.code)
@@ -133,6 +132,7 @@ class MainLoop:
         time.sleep(3)
 
     def valid_date(self):
+
         print("Data de validade: ", self.date_validate)
 
         validation_date = datetime.strptime(self.date_validate, '%Y-%m-%d').date()
