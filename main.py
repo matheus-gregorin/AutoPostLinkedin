@@ -41,12 +41,11 @@ class MainLoop:
             print("Iniciando...")
             time.sleep(3)
 
+            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Sair\n")
 
             # IA
             print("Gerando post com IA...")
             time.sleep(3)
-
-            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Sair\n")
             
             if option == '1':
                 print("Gerando post de site...")
