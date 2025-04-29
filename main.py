@@ -46,8 +46,21 @@ class MainLoop:
             print("Gerando post com IA...")
             time.sleep(3)
 
+            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Sair\n")
+            
+            if option == '1':
+                print("Gerando post de site...")
+
+            if option == '2':
+                print("Gerando post de tema...")
+
+            if option == '3':
+                print("Saindo...")
+                self.running = False
+                return
+
             # Gerar post com IA
-            post = self.ia.ask_question()
+            post = self.ia.ask_question(option)
             print("Post gerado com IA: ", post)
             time.sleep(3)
 

@@ -67,7 +67,13 @@ temas = [
     'O papel dos containers e orquestração no desenvolvimento moderno',
     'Como garantir a privacidade de dados no desenvolvimento de software',
     'Melhorando a experiência do usuário com design responsivo',
-    'Técnicas para otimização de banco de dados e consulta de dados'
+    'Técnicas para otimização de banco de dados e consulta de dados',
+    'Comportamento ético no desenvolvimento de software',
+    'A importância da documentação no desenvolvimento de software',
+    'Como lidar com a dívida técnica em projetos de software',
+    'A evolução das linguagens de programação: do Assembly ao Python',
+    'Como aplicar princípios SOLID no desenvolvimento de software',
+    'A importância do feedback contínuo no desenvolvimento ágil',
 ]
 class Gemini:
     def __init__(self):
@@ -76,26 +82,46 @@ class Gemini:
         self.model = genai.GenerativeModel('gemini-2.0-flash')
         # self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def ask_question(self):
-        site_index = random.randint(0, len(sites) - 1)
-        site = sites[site_index]
+    def ask_question(self, option):
 
-        conteudo_index = random.randint(0, len(temas) - 1)
-        tema = temas[conteudo_index]
+
+        ## SITES
+        if option == '1':
+            conteudo_index = random.randint(0, len(sites) - 1)
+            site = sites[conteudo_index]
+
+            print("Conteudo: ", site)
+            report = (
+                f"""
+                Gere um post de compartilhamento de novidades para o linkedin sobre algum conteúdo desse {site}, de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto (se precisar de links na publicação, insira você mesmo). Com no máximo 2000 caracteres.
+                """
+            )
+            self.response = self.model.generate_content(report)
+            print("Post: ", self.response.text)
         
-        report = (
-            f"""
-            Gere um post para o linkedin de desenvolvimento de sistemas com base em conceitos consolidados, de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto(se precisar de links na publicação, insira você mesmo). Com no máximo 2400 caracteres. Use esse tema como base: {tema}.
-            """
-        )
-        self.response = self.model.generate_content(report)
+
+        ## CONTEUDOS
+        if option == '2':
+            conteudo_index = random.randint(0, len(temas) - 1)
+            tema = temas[conteudo_index]
+
+            print("Conteudo: ", tema)
+            report = (
+                f"""
+                Gere um post para o linkedin sobre desenvolvimento de sistemas com base em conceitos consolidados, como corrigir erros e melhorar a capacidade técnica de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto(se precisar de links na publicação, insira você mesmo). Com no máximo 2000 caracteres. Use esse tema como base: {tema}.
+                """
+            )
+            self.response = self.model.generate_content(report)
+            print("Post: ", self.response.text)
 
         prompt = (
             f"""
-            Gere um prompt para criar uma imagem com base nesse post: {self.response.text}, com no máximo 512 caracteres: {site}.
+            Gere um prompt para criar uma imagem com base nesse post: {self.response.text}, com no máximo 512 caracteres. Caso seja um conceito técnico, me de um prompt para criar um diagrama
             """
         )
         self.prompt_img = self.model.generate_content(prompt)
+
+        print("Prompt: ", self.prompt_img.text)
 
         return [
             self.response.text,
