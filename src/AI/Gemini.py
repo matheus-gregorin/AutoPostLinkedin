@@ -92,7 +92,20 @@ class Gemini:
             print("Conteudo: ", site)
             report = (
                 f"""
-                Gere um post de compartilhamento de novidades para o linkedin sobre algum conteúdo desse {site}, de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto (se precisar de links na publicação, insira você mesmo). Com no máximo 2000 caracteres.
+                Gere um post para o LinkedIn com no máximo 2000 caracteres. Com o tema que você achar pertinente dentro do site.
+                Para isso, utilize como base as informações do seguinte site: {site}.
+                O texto deve ser:
+                – Escrito em linguagem humanizada e descontraída, como se estivesse conversando com colegas de profissão.
+                – Começar com uma frase de impacto, provocação ou pergunta direta para chamar a atenção.
+                – Evite termos técnicos excessivos. Se usar algum, explique de forma simples e acessível.
+                – Conte uma breve história ou experiência real relacionada ao tema (se fizer sentido).
+                – Traga um insight, aprendizado ou reflexão prática para quem está lendo.
+                – Caso use alguma informação extraída do site, cite claramente o link da fonte dentro do texto (sem encurtadores).
+                – Encerre com uma chamada para interação, como “E você, já viveu algo assim?”, “O que pensa sobre isso?” ou algo semelhante.
+                – Não use asteriscos, emojis ou formatação especial.
+                – Use parágrafos curtos para melhorar a legibilidade.
+
+                O objetivo é gerar identificação, conversa e compartilhamento
                 """
             )
             self.response = self.model.generate_content(report)
@@ -107,7 +120,19 @@ class Gemini:
             print("Conteudo: ", tema)
             report = (
                 f"""
-                Gere um post para o linkedin sobre desenvolvimento de sistemas com base em conceitos consolidados, como corrigir erros e melhorar a capacidade técnica de forma descontraida, aprofundada e que chame a atenção com alguma chamada no inicio do texto(se precisar de links na publicação, insira você mesmo). Com no máximo 2000 caracteres. Use esse tema como base: {tema}.
+                Gere um post para o LinkedIn com no máximo 2000 caracteres. O tema é: {tema}.
+                O texto deve ser:
+                – Escrito em linguagem humanizada e descontraída, como se estivesse conversando com colegas de profissão.
+                – Engajador desde a primeira linha (com uma frase de impacto, provocação ou pergunta direta).
+                – Evite termos técnicos excessivos e, se usar, explique de forma simples.
+                – Inclua uma breve história ou experiência pessoal relacionada ao tema (se fizer sentido).
+                – Traga um insight, aprendizado ou reflexão útil e prática para quem está lendo.
+                – Termine com uma pergunta ou chamada para interação nos comentários, como: “E você, já passou por isso?”, “O que você pensa sobre isso?”, etc.
+                – Caso seja necessário citar um dado, estudo ou notícia, insira o link da fonte diretamente no texto (sem encurtadores).
+                – Não use asteriscos, emojis ou formatações especiais.
+                – Estruture o texto com quebras de parágrafo para facilitar a leitura.
+
+                O objetivo é gerar identificação, conversa e compartilhamento
                 """
             )
             self.response = self.model.generate_content(report)
