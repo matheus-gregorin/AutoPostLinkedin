@@ -41,7 +41,7 @@ class MainLoop:
             print("Iniciando...")
             time.sleep(3)
 
-            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Sair\n")
+            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Gerar post sobre uma novidade tec\n4 - Gerar post sobre uma noticia tec\n5 - Sair\n")
             
             if option == '1':
                 print("Gerando post de site...")
@@ -50,6 +50,12 @@ class MainLoop:
                 print("Gerando post de tema...")
 
             if option == '3':
+                print("Gerando post de novidades...")
+            
+            if option == '4':
+                print("Gerando post de uma novidade...")
+        
+            if option == '5':
                 print("Saindo...")
                 self.running = False
                 return
