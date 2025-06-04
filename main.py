@@ -1,7 +1,6 @@
 import sys
 sys.dont_write_bytecode = True
 import time
-import json
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
@@ -38,32 +37,31 @@ class MainLoop:
 
         self.running = True
         while self.running:
+
             print("Iniciando...")
             time.sleep(3)
 
-            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Gerar post de tema\n3 - Gerar post sobre uma novidade tec\n4 - Gerar post sobre uma noticia tec\n5 - Sair\n")
+            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2- Post sobre um tema\n3 - Sair\n")
             
+            post = []
             if option == '1':
                 print("Gerando post de site...")
-
-            if option == '2':
-                print("Gerando post de tema...")
-
-            if option == '3':
-                print("Gerando post de novidades...")
+                post = self.ia.generate_post_default()
             
-            if option == '4':
-                print("Gerando post de uma novidade...")
+            if option == '2':
+                print("Gerando post sobre um tema...")
+                theme = input("Digite o tema do post: ")
+                #post = self.ia.generate_post_theme(theme)
         
-            if option == '5':
+            if option == '3':
                 print("Saindo...")
                 self.running = False
                 return
 
+            # Aguardando 3 segundos para simular processamento
             time.sleep(3)
 
             # Gerar post com IA
-            post = self.ia.generate_post(option)
             print("Post gerado com IA: ", post)
             time.sleep(3)
 
@@ -105,7 +103,7 @@ class MainLoop:
     def revalidating_code(self):
 
         self.access.recovery_code() # Abrindo no browser a pagina para recuperar o código
-        self.code = input("Digite o código aqui: ")
+        self.code = input("Digite o código aqui: ") # Pegue o código na URL após a autenticação
         print("Codigo atualizado: ", self.code)
         self.manager.atualizar_token('code', self.code)
 
