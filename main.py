@@ -41,7 +41,7 @@ class MainLoop:
             print("Iniciando...")
             time.sleep(3)
 
-            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2- Post sobre um tema\n3 - Sair\n")
+            option = input("Digite para mim a opção desejada: \n1 - Gerar post de site\n2 - Post sobre um tema\n3 - Sair\n")
             
             post = []
             if option == '1':
@@ -51,7 +51,7 @@ class MainLoop:
             if option == '2':
                 print("Gerando post sobre um tema...")
                 theme = input("Digite o tema do post: ")
-                #post = self.ia.generate_post_theme(theme)
+                post = self.ia.generate_post_theme(theme)
         
             if option == '3':
                 print("Saindo...")
